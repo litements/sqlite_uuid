@@ -21,6 +21,5 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     setup_requires=["wheel"],
-    classifiers=["Operating System :: OS Independent",],
     python_requires=">=3.6",
 )
