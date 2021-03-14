@@ -28,7 +28,6 @@ jobs:
         export PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH &&
         export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
         export LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
-        export LD_PRELOAD=$GITHUB_WORKSPACE/opt/sqlite/lib &&
         python -m build --sdist --wheel --outdir dist/ . &&
         ls -la &&
         ls dist/
