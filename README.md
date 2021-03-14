@@ -20,6 +20,12 @@ conn.execute("select load_extension('path/to/loadable/extension/sqlite_uuid_ext.
 
 The first option is the path to our compiled extension, the second one is the entrypoint function.
 
+## SQLite version
+
+This extension uses the `SQLITE_INNOCUOUS` flag.
+
+The SQLITE_INNOCUOUS flag is a new feature for SQLite version 3.31.0. Make sure you have at least that version installed, although you may be able to [get around it](https://sqlite.org/forum/forumpost/703601f60f?t=h).
+
 ## Examples
 
 ```python
