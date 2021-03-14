@@ -19,8 +19,8 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: >-
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
-        tar zxvf sqlite-autoconf-3330000.tar.gz &&
-        cd sqlite-autoconf-3330000 &&
+        tar zxvf sqlite-autoconf-3350000.tar.gz &&
+        cd sqlite-autoconf-3350000 &&
         ./configure --prefix=$HOME/opt/sqlite &&
         make &&
         make install &&
