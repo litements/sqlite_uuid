@@ -14,16 +14,15 @@ jobs:
       run: >-
         python -m
         pip install -U
-        build pip &&
+        build pip
+    - name: Build a binary wheel and a source tarball
+      run: >-
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
         tar zxvf sqlite-autoconf-3350000.tar.gz &&
         cd sqlite-autoconf-3350000 &&
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
-        make install
-    - name: Build a binary wheel and a source tarball
-      run: >-
-        PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH
+        make install &&
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build --sdist --wheel --outdir dist/ .
@@ -31,5 +30,4 @@ jobs:
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
-        verbose: true
         password: ${{ secrets.GH_PYPI_TOKEN }}
