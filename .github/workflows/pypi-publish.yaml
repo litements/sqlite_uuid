@@ -18,10 +18,9 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
+        apt-get install sqlite3 libsqlite3-dev &&
         python -m
         build
-        --sdist
-        --wheel
         --outdir dist/
         .
     - name: Publish distribution to PyPI
