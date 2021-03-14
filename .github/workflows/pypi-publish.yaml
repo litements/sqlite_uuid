@@ -18,14 +18,14 @@ jobs:
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
         tar zxvf sqlite-autoconf-3350000.tar.gz &&
         cd sqlite-autoconf-3350000 &&
-        ./configure --prefix=$HOME/opt/sqlite &&
+        ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install
     - name: Build a binary wheel and a source tarball
       run: >-
-        PATH=$HOME/opt/sqlite/bin:$PATH
-        LD_LIBRARY_PATH=$HOME/opt/sqlite/lib
-        LD_RUN_PATH=$HOME/opt/sqlite/lib
+        PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH
+        LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
+        LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build --sdist --wheel --outdir dist/ .
     - name: Publish distribution to PyPI
       if: startsWith(github.ref, 'refs/tags')
