@@ -32,7 +32,7 @@ jobs:
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         CUSTOM_INCLUDE="$GITHUB_WORKSPACE/opt/sqlite/include"
         CUSTOM_LIBRARIES="$GITHUB_WORKSPACE/opt/sqlite/lib"
-        python -m build
+        python -m build && rm dist/*.whl
     - name: tmate session if tests fail
       if: failure()
       uses: mxschmitt/action-tmate@v3
