@@ -24,6 +24,7 @@ jobs:
         make &&
         make install &&
         cd &&
+        echo "BUILDING dist/" &&
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build --sdist --wheel --outdir dist/ .
