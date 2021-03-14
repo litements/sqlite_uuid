@@ -16,7 +16,7 @@ jobs:
         python -m
         pip install -U
         build pip
-    - name: Build a binary wheel and a source tarball
+    - name: Build latest SQLite
       run: >-
         sudo apt-get install sqlite3 libsqlite3-dev &&
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
@@ -25,10 +25,12 @@ jobs:
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install &&
-        cd $GITHUB_WORKSPACE &&
+        cd $GITHUB_WORKSPACE
+    - name: Build a binary wheel and a source tarball
+      run: >-
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
-        python -m build --sdist --wheel --outdir dist/ .
+        python -m build
     - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
