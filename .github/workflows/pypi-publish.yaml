@@ -7,10 +7,10 @@ jobs:
     runs-on: ubuntu-18.04
     steps:
     - uses: actions/checkout@master
-    - name: Set up Python 3.7
+    - name: Set up Python 3.6
       uses: actions/setup-python@v2
       with:
-        python-version: 3.7
+        python-version: 3.6
     - name: Install pypa/build
       run: >-
         python -m
@@ -29,7 +29,7 @@ jobs:
     - name: Build a binary wheel and a source tarball
       run: >-
         ls -la &&
-        LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$GITHUB_WORKSPACE/opt/sqlite/lib
+        LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib:$LD_LIBRARY_PATH
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build
     - name: Publish distribution to PyPI
