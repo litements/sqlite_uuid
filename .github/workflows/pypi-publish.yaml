@@ -2,6 +2,7 @@ name: Publish Python distribution to PyPI
 on: push
 jobs:
   build-n-publish:
+    if: startsWith(github.ref, 'refs/tags')
     name: Build and publish Python distributions to PyPI
     runs-on: ubuntu-18.04
     steps:
@@ -17,6 +18,7 @@ jobs:
         build pip
     - name: Build a binary wheel and a source tarball
       run: >-
+        sudo apt-get install sqlite3 libsqlite3-dev &&
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
         tar zxvf sqlite-autoconf-3350000.tar.gz &&
         cd sqlite-autoconf-3350000 &&
@@ -28,7 +30,6 @@ jobs:
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build --sdist --wheel --outdir dist/ .
     - name: Publish distribution to PyPI
-      if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
         verbose: true
