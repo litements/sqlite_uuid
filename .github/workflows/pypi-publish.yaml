@@ -37,6 +37,3 @@ jobs:
       uses: pypa/gh-action-pypi-publish@master
       with:
         password: ${{ secrets.GH_PYPI_TOKEN }}
-      run: >-
-        ls -la &&
-        ls dist/
