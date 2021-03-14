@@ -29,7 +29,7 @@ jobs:
       run: >-
         ls -la &&
         PATH=$HOME/opt/sqlite/bin:$PATH LD_LIBRARY_PATH=$HOME/opt/sqlite/lib:$LD_LIBRARY_PATH LD_RUN_PATH=$HOME/opt/sqlite/lib
-        sudo python -m build
+        python -m build
     - name: tmate session if tests fail
       if: failure()
       uses: mxschmitt/action-tmate@v3
