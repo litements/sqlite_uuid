@@ -23,6 +23,7 @@ jobs:
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install &&
+        cd &&
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build --sdist --wheel --outdir dist/ .
@@ -30,5 +31,4 @@ jobs:
       if: startsWith(github.ref, 'refs/tags')
       uses: pypa/gh-action-pypi-publish@master
       with:
-        verify_metadata: false
         password: ${{ secrets.GH_PYPI_TOKEN }}
