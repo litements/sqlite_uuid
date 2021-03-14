@@ -24,11 +24,11 @@ jobs:
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install &&
-        cd .. &&
+        cd $GITHUB_WORKSPACE &&
         echo "BUILDING dist/" &&
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
-        python -m build --sdist --wheel --outdir dist/ . &&
+        python -m build --outdir dist/ . &&
         ls -la &&
         ls dist/
     - name: Publish distribution to PyPI
