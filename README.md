@@ -5,7 +5,7 @@
 ## Installation
 
 ```sh
-pip install sqlite_uuid
+pip install sqlite-uuid
 ```
 
 ## Notes

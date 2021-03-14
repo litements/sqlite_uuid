@@ -28,8 +28,8 @@ sqlite_uuid_ext = Extension(
 )
 
 setup(
-    name="sqlite_uuid",
-    version="0.9",
+    name="sqlite-uuid",
+    version="0.9.1",
     author="Ricardo Ander-Egg Aguilar",
     author_email="rsubacc@gmail.com",
     description="Loadable uuid extension for sqlite",
