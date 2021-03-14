@@ -2,11 +2,10 @@ name: Publish Python distribution to PyPI
 on: push
 jobs:
   build-n-publish:
-    if: startsWith(github.ref, 'refs/tags')
     name: Build and publish Python distributions to PyPI
     runs-on: ubuntu-18.04
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@master
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
@@ -18,23 +17,61 @@ jobs:
         build pip
     - name: Build a binary wheel and a source tarball
       run: >-
-        wget https://www3.sqlite.org/2020/sqlite-autoconf-3340000.tar.gz &&
-        tar zxvf sqlite-autoconf-3340000.tar.gz &&
-        cd sqlite-autoconf-3340000 &&
+        wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
+        tar zxvf sqlite-autoconf-3350000.tar.gz &&
+        cd sqlite-autoconf-3350000 &&
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install &&
         cd $GITHUB_WORKSPACE &&
-        export PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH &&
-        export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
-        export LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
-        python -m build --sdist --wheel --outdir dist/ . &&
-        ls -la &&
-        ls dist/
-    - name: tmate session if tests fail
-      if: failure()
-      uses: mxschmitt/action-tmate@v3
+        LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
+        LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
+        python -m build --sdist --wheel --outdir dist/ .
     - name: Publish distribution to PyPI
-      uses: pypa/gh-action-pypi-publish@release/v1
+      if: startsWith(github.ref, 'refs/tags')
+      uses: pypa/gh-action-pypi-publish@master
       with:
+        verbose: true
         password: ${{ secrets.GH_PYPI_TOKEN }}
+
+
+# name: Publish Python distribution to PyPI
+# on: push
+# jobs:
+#   build-n-publish:
+#     if: startsWith(github.ref, 'refs/tags')
+#     name: Build and publish Python distributions to PyPI
+#     runs-on: ubuntu-18.04
+#     steps:
+#     - uses: actions/checkout@v2
+#     - name: Set up Python 3.7
+#       uses: actions/setup-python@v2
+#       with:
+#         python-version: 3.7
+#     - name: Install pypa/build
+#       run: >-
+#         python -m
+#         pip install -U
+#         build pip
+#     - name: Build a binary wheel and a source tarball
+#       run: >-
+#         wget https://www3.sqlite.org/2020/sqlite-autoconf-3340000.tar.gz &&
+#         tar zxvf sqlite-autoconf-3340000.tar.gz &&
+#         cd sqlite-autoconf-3340000 &&
+#         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
+#         make &&
+#         make install &&
+#         cd $GITHUB_WORKSPACE &&
+#         export PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH &&
+#         export LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
+#         export LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib &&
+#         python -m build --sdist --wheel --outdir dist/ . &&
+#         ls -la &&
+#         ls dist/
+#     - name: tmate session if tests fail
+#       if: failure()
+#       uses: mxschmitt/action-tmate@v3
+#     - name: Publish distribution to PyPI
+#       uses: pypa/gh-action-pypi-publish@release/v1
+#       with:
+#         password: ${{ secrets.GH_PYPI_TOKEN }}
