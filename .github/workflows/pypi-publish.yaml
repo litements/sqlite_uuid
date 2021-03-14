@@ -18,7 +18,7 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
-        sudo apt-get install sqlite3 libsqlite3-dev &&
+        sudo apt-get -y install python-sqlite sqlite3 libsqlite3-dev &&
         python -m
         build
         --outdir dist/
