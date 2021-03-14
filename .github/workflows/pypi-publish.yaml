@@ -18,9 +18,9 @@ jobs:
         build pip
     - name: Build a binary wheel and a source tarball
       run: >-
-        wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
-        tar zxvf sqlite-autoconf-3350000.tar.gz &&
-        cd sqlite-autoconf-3350000 &&
+        wget https://www3.sqlite.org/2021/sqlite-autoconf-3340000.tar.gz &&
+        tar zxvf sqlite-autoconf-3340000.tar.gz &&
+        cd sqlite-autoconf-3340000 &&
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
         make &&
         make install &&
