@@ -18,20 +18,17 @@ jobs:
         build pip
     - name: Build latest SQLite
       run: >-
-        sudo apt-get install sqlite3 libsqlite3-dev &&
         wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
         tar zxvf sqlite-autoconf-3350000.tar.gz &&
         cd sqlite-autoconf-3350000 &&
         ./configure --prefix=$HOME/opt/sqlite &&
-        sudo make &&
-        sudo make install &&
+        make &&
+        make install &&
         cd $GITHUB_WORKSPACE
     - name: Build a binary wheel and a source tarball
       run: >-
         ls -la &&
-        PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH
-        LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib:$LD_LIBRARY_PATH
-        LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
+        PATH=$GITHUB_WORKSPACE/opt/sqlite/bin:$PATH LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib:$LD_LIBRARY_PATH LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         sudo python -m build
     - name: tmate session if tests fail
       if: failure()
