@@ -12,6 +12,8 @@ sqlite_uuid_ext = Extension("sqlite_uuid_ext", sources=["uuid.c"])
 setup(
     name="sqlite_uuid",
     version="0.9",
+    author="Ricardo Ander-Egg Aguilar",
+    author_email="rsubacc@gmail.com",
     description="Loadable uuid extension for sqlite",
     py_modules=["sqlite_uuid"],
     ext_modules=[sqlite_uuid_ext],
@@ -19,4 +21,6 @@ setup(
     long_description=long_description,
     long_description_content_type="text/markdown",
     setup_requires=["wheel"],
+    classifiers=["Operating System :: OS Independent",],
+    python_requires=">=3.6",
 )
