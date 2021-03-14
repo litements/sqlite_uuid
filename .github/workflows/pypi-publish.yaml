@@ -23,15 +23,18 @@ jobs:
         tar zxvf sqlite-autoconf-3350000.tar.gz &&
         cd sqlite-autoconf-3350000 &&
         ./configure --prefix=$GITHUB_WORKSPACE/opt/sqlite &&
-        make &&
-        make install &&
+        sudo make &&
+        sudo make install &&
         cd $GITHUB_WORKSPACE
     - name: Build a binary wheel and a source tarball
       run: >-
         ls -la &&
         LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib:$LD_LIBRARY_PATH
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
-        python -m build
+        sudo python -m --no-isolation build
+    - name: tmate session if tests fail
+      if: failure()
+      uses: mxschmitt/action-tmate@v3
     - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@master
       with:
