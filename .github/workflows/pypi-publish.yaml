@@ -18,7 +18,15 @@ jobs:
         --user
     - name: Build a binary wheel and a source tarball
       run: >-
-        sudo apt-get -y install python-sqlite sqlite3 libsqlite3-dev &&
+        wget https://sqlite.org/2021/sqlite-autoconf-3350000.tar.gz &&
+        tar zxvf sqlite-autoconf-3330000.tar.gz &&
+        cd sqlite-autoconf-3330000 &&
+        ./configure --prefix=$HOME/opt/sqlite &&
+        make &&
+        make install &&
+        export PATH=$HOME/opt/sqlite/bin:$PATH &&
+        export LD_LIBRARY_PATH=$HOME/opt/sqlite/lib &&
+        export LD_RUN_PATH=$HOME/opt/sqlite/lib &&
         python -m
         build
         --outdir dist/
