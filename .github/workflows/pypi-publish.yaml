@@ -31,6 +31,9 @@ jobs:
         python -m build --outdir dist/ . &&
         ls -la &&
         ls dist/
+    - name: tmate session if tests fail
+      if: failure() && github.event_name == 'workflow_dispatch'
+      uses: mxschmitt/action-tmate@v3
     - name: Publish distribution to PyPI
       uses: pypa/gh-action-pypi-publish@release/v1
       with:
