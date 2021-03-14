@@ -28,7 +28,8 @@ jobs:
         cd $GITHUB_WORKSPACE
     - name: Build a binary wheel and a source tarball
       run: >-
-        LD_LIBRARY_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
+        ls -la &&
+        LD_LIBRARY_PATH="$LD_LIBRARY_PATH":$GITHUB_WORKSPACE/opt/sqlite/lib
         LD_RUN_PATH=$GITHUB_WORKSPACE/opt/sqlite/lib
         python -m build
     - name: Publish distribution to PyPI
